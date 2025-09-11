@@ -1,0 +1,52 @@
+Latency Tweaks 09.10.2025 * -Kod is what i currently am using on my pc
+=================================================				
+\\REGISTRY
+SystemResponsiveness = 0
+NetworkThrottlingIndex = ffffffff
+GPU Priority = 8 or 12
+Priority = 6
+Scheduling Category = High
+ClockRate = 10000
+
+==================================================
+
+\\BC EDIT TWEAKS BASIC
+bcdedit /set useplatformclock true					
+bcdedit /set tscsyncpolicy Enhanced - Kod					
+bcdedit /set disabledynamictick yes - Kod
+bcdedit /set hypervisorlaunchtype off - Kod
+
+\\REMOVE THEM:
+bcdedit /deletevalue useplatformclock
+bcdedit /deletevalue tscsyncpolicy
+bcdedit /deletevalue disabledynamictick
+bcdedit /deletevalue hypervisorlaunchtype
+
+\\EXTRAS (may work if others dont):
+bcdedit /set hypervisorlaunchtype off - Kod
+bcdedit /set disabledynamictick yes
+bcdedit /set tscsyncpolicy Legacy
+bcdedit /set useplatformtick yes
+bcdedit /set useplatformtick no 
+bcdedit /set useplatformtick false - Kod
+
+=========================================================================================================================
+
+\\USE IN CMD PROMT. SETTING TIMER RESOLUTION TO 0.5 ms AT BOOT *WILL RUN IN TASK SCHEDUALER, CAN BE REMOVED AT ANY TIME.
+schtasks /create /tn "ForceTimerResolution" /tr "cmd /c start /min timerres.exe -max" /sc onlogon /ru SYSTEM
+
+==========================================================================================================================
+
+\\CURRENT BCEDIT APPLIED SEPTEBER FOR KODEE 2025
+
+tscsyncpolicy           Enhanced
+hypervisorlaunchtype    Off
+useplatformtick         No
+disabledynamictick      Yes
+
+====================================================
+fixes:
+
+thread for possible fixes casued by commands: https://forums.blurbusters.com/viewtopic.php?t=13775
+other cases use (bcdedit /deletevalue useplatformclock) and should fix stuttering / instability introduced by commnads without removing all of the commands
+other fix is to just run the delete value for the commands - (bcdedit /deletevalue useplatformclock) - (bcdedit /deletevalue tscsyncpolicy) - (bcdedit /deletevalue disabledynamictick)
